@@ -1,7 +1,6 @@
 package pt.isel.deetc.si.deCipher;
 
 import pt.isel.deetc.common.clp.CommandLineParser;
-import sun.security.provider.certpath.PKIXCertPathValidator;
 
 import javax.crypto.*;
 import java.io.*;
@@ -13,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public class MCipher {
-    private static final String certType = "x509";
+    private static final String _certType = "x509";
+    private static final String _simetricAlg = "AES";
+    private static final String _asimetricAlg = "RSA";
+    private static final String _keyStoreType = "JKS";
 
     public static void main(String[] args) {
         Map<String, String> params;
@@ -21,32 +23,29 @@ public class MCipher {
         params = parser.parse(args);
 
         try {
-            final String simetricAlg = "AES";
-            final String asimetricAlg = "RSA";
-
-            File infile = new File(params.get("file"));
-            File encfile = new File(String.format("%s.enc", infile.getAbsolutePath(), infile.getName()));
-            File metafile = new File(String.format("%s.meta", infile.getAbsolutePath(), infile.getName()));
+            File inFile = new File(params.get("file"));
+            File encFile = new File(String.format("%s.enc", inFile.getAbsolutePath(), inFile.getName()));
+            File metaFile = new File(String.format("%s.meta", inFile.getAbsolutePath(), inFile.getName()));
             File certsFolder = new File(params.get("certsFolder"));
 
-            FileInputStream stream = new FileInputStream(infile);
+            FileInputStream stream = new FileInputStream(inFile);
             FileInputStream certStream = new FileInputStream(params.get("cert"));
             FileInputStream keyStoreStream = new FileInputStream(params.get("keystore"));
-            FileOutputStream encstream = new FileOutputStream(encfile);
-            FileOutputStream metastream = new FileOutputStream(metafile);
+            FileOutputStream encStream = new FileOutputStream(encFile);
+            FileOutputStream metaStream = new FileOutputStream(metaFile);
 
-            CertificateFactory certificateFactory = CertificateFactory.getInstance(certType);
+            CertificateFactory certificateFactory = CertificateFactory.getInstance(_certType);
             Certificate receiverCert = certificateFactory.generateCertificate(certStream);
 
-            KeyStore keyStore = KeyStore.getInstance("JKS");
+            KeyStore keyStore = KeyStore.getInstance(_keyStoreType);
             keyStore.load(keyStoreStream, params.get("password").toCharArray());
 
             if(ValidateCert(receiverCert, certsFolder, keyStore)) {
-                KeyGenerator secKeyGen = KeyGenerator.getInstance(simetricAlg);
+                KeyGenerator secKeyGen = KeyGenerator.getInstance(_simetricAlg);
                 Key key = secKeyGen.generateKey();
 
-                PleaseDoCipher(simetricAlg, stream, encstream, key);
-                PleaseDoMeta(asimetricAlg, metastream, receiverCert, key);
+                CreateCipherFile(_simetricAlg, stream, encStream, key);
+                CreateMetaFile(_simetricAlg, _asimetricAlg, metaStream, receiverCert, key);
             }
             else
                 System.err.println("Validation failed.");
@@ -57,7 +56,7 @@ public class MCipher {
 
     private static boolean ValidateCert(Certificate receiverCert, File certsFolder, KeyStore keyStore) throws NoSuchAlgorithmException, KeyStoreException, InvalidAlgorithmParameterException, CertPathBuilderException, CertificateException {
         List<Certificate> certs = new LinkedList<>();
-        CertificateFactory certificateFactory = CertificateFactory.getInstance(certType);
+        CertificateFactory certificateFactory = CertificateFactory.getInstance(_certType);
 
         for(File f : certsFolder.listFiles()) {
             try {
@@ -67,35 +66,17 @@ public class MCipher {
             }
         }
 
-        certs.add(receiverCert);
-
-        CertificateFactory factory = CertificateFactory.getInstance(certType);
-        CertPath path = factory.generateCertPath(certs);
-
-        PKIXCertPathValidator validator = new PKIXCertPathValidator();
-
-        PKIXCertPathValidatorResult resultValidator = null;
-        try {
-            PKIXParameters parameters = new PKIXParameters(keyStore);
-            parameters.setRevocationEnabled(false);
-            resultValidator = (PKIXCertPathValidatorResult) validator.engineValidate(path, parameters);
-
-            return true;
-        } catch (CertPathValidatorException e) {
-            return false;
-        }
+        X509CertificatePathValidator validator = new X509CertificatePathValidator(certs, keyStore);
+        return validator.Validate(receiverCert);
     }
 
-    private static void PleaseDoMeta(String algorithm, FileOutputStream metastream, Certificate receiverCert, Key cipherKey) throws CertificateEncodingException, IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = Cipher.getInstance(algorithm);
-        cipher.init(Cipher.WRAP_MODE, receiverCert.getPublicKey());
+    private static void CreateMetaFile(String sAlgorithm, String asAlgorithm, FileOutputStream metastream, Certificate receiverCert, Key cipherKey) throws CertificateEncodingException, IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Metadata meta = new Metadata(sAlgorithm, asAlgorithm, cipherKey, receiverCert);
 
-        metastream.write(cipher.wrap(cipherKey));
-
-        metastream.write(receiverCert.getEncoded());
+        meta.WriteToFile(metastream);
     }
 
-    private static void PleaseDoCipher(String algorithm, FileInputStream stream, FileOutputStream encstream, Key cipherKey) throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+    private static void CreateCipherFile(String algorithm, FileInputStream stream, FileOutputStream encstream, Key cipherKey) throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance(algorithm);
 
         cipher.init(Cipher.ENCRYPT_MODE, cipherKey);

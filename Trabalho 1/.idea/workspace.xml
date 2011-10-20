@@ -33,7 +33,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java" line="84" class="pt.isel.deetc.si.deCipher.MCipher" package="pt.isel.deetc.si.deCipher">
+      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java" line="41" class="pt.isel.deetc.si.deCipher.Decipher" package="pt.isel.deetc.si.deCipher">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -46,7 +46,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXParameters.java" line="152" class="java.security.cert.PKIXParameters" package="java.security.cert">
+      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java" line="57" class="pt.isel.deetc.si.deCipher.Metadata" package="pt.isel.deetc.si.deCipher">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -59,7 +59,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java" line="61" class="pt.isel.deetc.si.deCipher.MCipher" package="pt.isel.deetc.si.deCipher">
+      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java" line="49" class="pt.isel.deetc.si.deCipher.Decipher" package="pt.isel.deetc.si.deCipher">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -113,19 +113,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Decipher.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Decipher.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MCipher.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="0" selection-start="3610" selection-end="3610" vertical-scroll-proportion="0.28030303">
+            <state line="48" column="23" selection-start="2107" selection-end="2107" vertical-scroll-proportion="-0.20597015">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,11 +124,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PKIXParameters.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXParameters.java">
+      <file leaf-file-name="Metadata.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="152" column="0" selection-start="5846" selection-end="5846" vertical-scroll-proportion="0.0">
+            <state line="52" column="40" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShouldNotHappenException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/exceptions/ShouldNotHappenException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="62" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MCipher.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="45" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="X509CertificatePathValidator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/X509CertificatePathValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,6 +171,10 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
+    <option name="UPDATE_CHANGES_POLICY" value="STASH" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -157,8 +183,13 @@
         <option value="$PROJECT_DIR$/src/pt/isel/deetc/common/clp/CommandLineParser.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/deetc/si/filehash/FileHash.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Cipher.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/CertPathValidator.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCertPathValidator.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/X509CertificatePathValidator.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si/exceptions/ShouldNotHappenException.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java" />
       </list>
     </option>
   </component>
@@ -177,7 +208,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -192,7 +223,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -208,28 +241,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Trabalho 1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Trabalho 1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Trabalho 1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deetc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filehash" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -273,35 +284,84 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="si" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filehash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Trabalho 1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Trabalho 1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deetc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="si" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Trabalho 1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Trabalho 1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deetc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="clp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="recentsLimit" value="5" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GoToClass.includeLibraries" value="false" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="dynamic.classpath" value="false" />
+    <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\ISEL\2011-2012\SI\Trabalho 1\src\pt\isel\deetc\common\clp" />
     </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="pt.isel.deetc.si.exceptions" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.MCipher">
+  <component name="RunManager" selected="Application.Decipher">
     <configuration default="false" name="FileHash" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="pt.isel.deetc.si.filehash.FileHash" />
       <option name="VM_PARAMETERS" value="" />
@@ -327,7 +387,7 @@
     <configuration default="false" name="MCipher" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="pt.isel.deetc.si.deCipher.MCipher" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-file C:\ISEL\2011-2012\SI\Trabalho 1\Apache2.2.zip -certsFolder C:\ISEL\2011-2012\SI\Trabalho 1\distr\certs.CA.intermediate -cert C:\ISEL\2011-2012\SI\Trabalho 1\distr\certs.end.entities\Alice_1_all.cer -keystore C:\ISEL\2011-2012\SI\Trabalho 1\distr\trustanchors\CA1.raiz.jks -password changeit " />
+      <option name="PROGRAM_PARAMETERS" value="-file C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\Apache2.2.zip -certsFolder C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\distr\certs.CA.intermediate -cert C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\distr\certs.end.entities\Alice_1_all.cer -keystore C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\distr\trustanchors\CA1.raiz.jks -password changeit " />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -338,6 +398,28 @@
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="54316" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Decipher" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="pt.isel.deetc.si.deCipher.Decipher" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-metafile C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\Apache2.2.zip.meta -cipherfile C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\Apache2.2.zip.enc -keystore C:\ISEL\2011-2012\SI\Trabalhos\Trabalho 1\distr\pfx\Alice_1_all.pfx -password changeit" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Trabalho 1" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="3420" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -420,9 +502,10 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.FileHash" />
       <item index="1" class="java.lang.String" itemvalue="Application.MCipher" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Decipher" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -461,20 +544,20 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39903846" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39903846" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" sideWeight="0.69871795" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17761557" sideWeight="0.60096157" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30128205" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -526,102 +609,104 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/common/clp/CommandLineParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="3200" selection-end="3200" vertical-scroll-proportion="0.3181818">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/io/PrintStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="803" column="16" selection-start="27425" selection-end="27425" vertical-scroll-proportion="-5.0255103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/spec/RSAPrivateKeySpec.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="11" selection-start="801" selection-end="801" vertical-scroll-proportion="0.33266932">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/Signature.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="550" column="24" selection-start="20626" selection-end="20626" vertical-scroll-proportion="0.33266932">
-          <folding />
-        </state>
+        <state line="550" column="24" selection-start="20626" selection-end="20626" vertical-scroll-proportion="0.33266932" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/filehash/FileHash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="8" selection-start="369" selection-end="493" vertical-scroll-proportion="0.0">
+        <state line="13" column="8" selection-start="369" selection-end="493" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXBuilderParameters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="17" selection-start="4880" selection-end="4880" vertical-scroll-proportion="0.82885087" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CertSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="17" selection-start="996" selection-end="996" vertical-scroll-proportion="0.23716381" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CertStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="223" column="28" selection-start="9274" selection-end="9274" vertical-scroll-proportion="0.19315404" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CollectionCertStoreParameters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="11" selection-start="3121" selection-end="3121" vertical-scroll-proportion="0.81585675" />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0/jre/lib/rt.jar!/sun/security/provider/certpath/PKIXCertPathValidator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="54" selection-start="714" selection-end="714" vertical-scroll-proportion="0.5300353" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXParameters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="0" selection-start="5846" selection-end="5846" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/X509CertificatePathValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXBuilderParameters.java">
+    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/io/FileInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="17" selection-start="4880" selection-end="4880" vertical-scroll-proportion="0.82885087">
+        <state line="196" column="22" selection-start="6840" selection-end="6840" vertical-scroll-proportion="0.031825796">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CertSelector.java">
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/exceptions/ShouldNotHappenException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="17" selection-start="996" selection-end="996" vertical-scroll-proportion="0.23716381">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CertStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="223" column="28" selection-start="9274" selection-end="9274" vertical-scroll-proportion="0.19315404">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/CollectionCertStoreParameters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="11" selection-start="3121" selection-end="3121" vertical-scroll-proportion="0.81585675">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0/jre/lib/rt.jar!/sun/security/provider/certpath/PKIXCertPathValidator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="54" selection-start="714" selection-end="714" vertical-scroll-proportion="0.5300353">
+        <state line="2" column="62" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0/jre/lib/jce.jar!/javax/crypto/Cipher.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="24" selection-start="7436" selection-end="7436" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Documents/Documents/Programming/Java/JavaDebug 7/src.zip!/java/security/cert/PKIXParameters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="0" selection-start="5846" selection-end="5846" vertical-scroll-proportion="0.0">
+        <state line="132" column="35" selection-start="9495" selection-end="9495" vertical-scroll-proportion="0.3321918">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/MCipher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="3610" selection-end="3610" vertical-scroll-proportion="0.28030303">
+        <state line="47" column="45" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0/jre/lib/jce.jar!/javax/crypto/CipherInputStream.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="15" selection-start="733" selection-end="733" vertical-scroll-proportion="0.36348408">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="40" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Decipher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="23" selection-start="2107" selection-end="2107" vertical-scroll-proportion="-0.20597015">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
