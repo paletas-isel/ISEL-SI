@@ -1,0 +1,7 @@
+[Fri Oct 21 10:57:20 2011] [error] Failed to configure CA certificate chain!
+[Fri Oct 21 10:58:20 2011] [error] [client 127.0.0.1] File does not exist: C:/ISEL/2011-2012/SI/Trabalhos/Trabalho 1/Apache2.2/htdocs/favicon.ico
+[Fri Oct 21 10:58:20 2011] [error] [client 127.0.0.1] File does not exist: C:/ISEL/2011-2012/SI/Trabalhos/Trabalho 1/Apache2.2/htdocs/favicon.ico
+[Fri Oct 21 10:58:20 2011] [error] [client 127.0.0.1] File does not exist: C:/ISEL/2011-2012/SI/Trabalhos/Trabalho 1/Apache2.2/htdocs/favicon.ico
+[Fri Oct 21 11:00:25 2011] [error] Certificate Verification: Error (20): unable to get local issuer certificate
+[Fri Oct 21 11:07:14 2011] [error] [client 127.0.0.1] File does not exist: C:/ISEL/2011-2012/SI/Trabalhos/Trabalho 1/Apache2.2/htdocs/favicon.ico
+[Fri Oct 21 11:08:28 2011] [error] [client 127.0.0.1] File does not exist: C:/ISEL/2011-2012/SI/Trabalhos/Trabalho 1/Apache2.2/htdocs/favicon.ico
