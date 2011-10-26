@@ -12,10 +12,11 @@ import java.io.IOException;
 import java.security.*;
 import java.util.Map;
 
-public class Decipher {
+public class DecipherFile {
 
     private static final String _keyStoreType = "PKCS12";
     public static void main(String[] args) {
+        long init = System.currentTimeMillis();
         Map<String, String> params;
         CommandLineParser parser = new CommandLineParser();
         params = parser.parse(args);
@@ -23,7 +24,7 @@ public class Decipher {
         try {
             File metaFile = new File(params.get("metafile"));
             File cipherFile = new File(params.get("cipherfile"));
-            File saveFile = new File(metaFile.getAbsolutePath().substring(metaFile.getAbsolutePath().length() - 3));
+            File saveFile = new File(metaFile.getAbsolutePath().substring(0, metaFile.getAbsolutePath().length() - 5));
 
             FileInputStream metaStream = new FileInputStream(metaFile);
             FileInputStream cipherStream = new FileInputStream(cipherFile);
@@ -36,11 +37,11 @@ public class Decipher {
             Metadata meta = Metadata.ReadFromFile(metaStream);
             PrivateKey key = (PrivateKey) keyStore.getKey(keyStore.getCertificateAlias(meta.getCertificate()), params.get("password").toCharArray());
             DecipherFile(cipherStream, saveStream, key, meta);
-
-            System.out.println("C'est fini!");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
+        System.out.println((System.currentTimeMillis() - init));
     }
 
     private static void DecipherFile(FileInputStream cipherStream, FileOutputStream fileStream, PrivateKey key, Metadata meta) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IOException {

@@ -11,13 +11,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MCipher {
+public class CipherFile {
     private static final String _certType = "x509";
     private static final String _simetricAlg = "AES";
     private static final String _asimetricAlg = "RSA";
     private static final String _keyStoreType = "JKS";
 
     public static void main(String[] args) {
+        long init = System.currentTimeMillis();
+
         Map<String, String> params;
         CommandLineParser parser = new CommandLineParser();
         params = parser.parse(args);
@@ -52,6 +54,8 @@ public class MCipher {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
+        System.out.println((System.currentTimeMillis() - init));
     }
 
     private static boolean ValidateCert(Certificate receiverCert, File certsFolder, KeyStore keyStore) throws NoSuchAlgorithmException, KeyStoreException, InvalidAlgorithmParameterException, CertPathBuilderException, CertificateException {
