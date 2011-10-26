@@ -33,19 +33,6 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java" line="57" class="pt.isel.deetc.si.deCipher.Metadata" package="pt.isel.deetc.si.deCipher">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
     </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
@@ -87,15 +74,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DecipherFile.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/DecipherFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="35" selection-start="1838" selection-end="1838" vertical-scroll-proportion="0.8074205">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FileHash.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/filehash/FileHash.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -105,10 +83,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Metadata.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java">
+      <file leaf-file-name="CipherFile.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/deCipher/CipherFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="53" selection-start="2574" selection-end="2574" vertical-scroll-proportion="0.0">
+            <state line="13" column="13" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DecipherFile.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/deCipher/DecipherFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="13" selection-start="373" selection-end="373" vertical-scroll-proportion="0.1369863">
               <folding />
             </state>
           </provider>
@@ -118,24 +105,6 @@
         <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/exceptions/ShouldNotHappenException.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="2" column="62" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CipherFile.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/CipherFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="63" selection-start="2387" selection-end="2452" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="X509CertificatePathValidator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/X509CertificatePathValidator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -239,7 +208,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="si.deCipher" />
+              <option name="myItemId" value="si" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -262,6 +231,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="si" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deCipher" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -312,6 +285,9 @@
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="pt.isel.deetc.si.exceptions" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="pt.isel.deetc.si.deCipher" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DecipherFile">
@@ -613,19 +589,9 @@
         <state line="26" column="13" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/Metadata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="53" selection-start="2574" selection-end="2574" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/exceptions/ShouldNotHappenException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="62" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/X509CertificatePathValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/filehash/FileHash.java">
@@ -633,16 +599,16 @@
         <state line="18" column="50" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/CipherFile.java">
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/deCipher/CipherFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="63" selection-start="2387" selection-end="2452" vertical-scroll-proportion="0.0">
+        <state line="13" column="13" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si.deCipher/DecipherFile.java">
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/deetc/si/deCipher/DecipherFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="35" selection-start="1838" selection-end="1838" vertical-scroll-proportion="0.8074205">
+        <state line="14" column="13" selection-start="373" selection-end="373" vertical-scroll-proportion="0.1369863">
           <folding />
         </state>
       </provider>
