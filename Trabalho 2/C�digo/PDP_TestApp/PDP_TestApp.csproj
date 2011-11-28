@@ -2,18 +2,20 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{40FE4183-4B20-4226-B635-5860B0329095}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{68FFE6D7-8CBD-410C-B094-BA07C076D1D2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PDP_RBAC1</RootNamespace>
-    <AssemblyName>PDP-RBAC1</AssemblyName>
+    <RootNamespace>PDP_TestApp</RootNamespace>
+    <AssemblyName>PDP_TestApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +24,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,22 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\Helpers\IEnumerableHelpers.cs" />
-    <Compile Include="Configurations\PDPSection.cs" />
-    <Compile Include="Configurations\PermissionCollection.cs" />
-    <Compile Include="Configurations\PermissionElement.cs" />
-    <Compile Include="Configurations\RolesCollection.cs" />
-    <Compile Include="Configurations\RoleElement.cs" />
-    <Compile Include="Configurations\SimpleRolesCollection.cs" />
-    <Compile Include="Configurations\SimpleRoleElement.cs" />
-    <Compile Include="Configurations\UserCollection.cs" />
-    <Compile Include="Configurations\UserElement.cs" />
-    <Compile Include="Model\Permission.cs" />
-    <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\Session.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="PolicyDecisionPoint.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDP-RBAC1\PDP-RBAC1.csproj">
+      <Project>{40FE4183-4B20-4226-B635-5860B0329095}</Project>
+      <Name>PDP-RBAC1</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

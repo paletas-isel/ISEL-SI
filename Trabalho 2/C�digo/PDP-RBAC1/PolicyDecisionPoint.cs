@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
+using PDP_RBAC1.Configurations;
+using PDP_RBAC1.Configurations.Helpers;
 using PDP_RBAC1.Model;
 
 namespace PDP_RBAC1
@@ -14,11 +17,11 @@ namespace PDP_RBAC1
         private IEnumerable<Session> _sessions;
 
         public PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
-            IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
+            IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
         {
             //Order matters! :(
             _permissions = ParsePermissions(permissions);
-            _roles = ParseRoles(roles, _permissions, permissionAssignment);
+            _roles = ParseRoles(roles, _permissions, rh, permissionAssignment);
             _users = ParseUsers(users, _roles, userAssignment);
         }
 
@@ -34,23 +37,27 @@ namespace PDP_RBAC1
             return p;
         }
 
-        private static IEnumerable<Role> ParseRoles(IEnumerable<string> roles, IEnumerable<Permission> permissions, IEnumerable<string> permissionAssignment)
+        private static IEnumerable<Role> ParseRoles(IEnumerable<string> roles, IEnumerable<Permission> permissions, IEnumerable<string> rh, IEnumerable<string> permissionAssignment)
         {
             List<Role> r = new List<Role>();
-            List<string> rolesCopy = new List<string>(roles);
-            
-            Regex regex =
-                        new Regex(
-                            "[((?<Senior>[A-Za-z0-9]+) > (?<Junior>[A-Za-z0-9]+))((?<Junior>[A-Za-z0-9]+) < (?<Senior>[A-Za-z0-9]+))]");
+            List<string> rhCopy = new List<string>(rh);
+
+            foreach (string role in roles)
+            {
+                r.Add(new Role { Name = role, Juniors = new List<Role>(), Permissions = new List<Permission>()});
+            }
+
+            Regex regex = new Regex(
+                            "((?<Senior>[A-Za-z0-9]+) > (?<Junior>[A-Za-z0-9]+))|((?<Junior>[A-Za-z0-9]+) < (?<Senior>[A-Za-z0-9]+))", RegexOptions.IgnorePatternWhitespace);
                     
-            while (rolesCopy.Count() != 0)
+            while (rhCopy.Count() != 0)
             {
                 string toRemove = null;
-                foreach (string role in rolesCopy)
+                foreach (string rHelement in rhCopy)
                 {
-                    Match match = regex.Match(role);
-                    if (!match.Success) r.Add(new Role {Name = role});
-                    else
+                    Match match = regex.Match(rHelement);
+
+                    if (match.Success)
                     {
                         string junior = match.Groups["Junior"].Value;
                         string senior = match.Groups["Senior"].Value;
@@ -58,7 +65,7 @@ namespace PDP_RBAC1
                         Role seniorRole = new Role {Name = senior};
                         Role juniorRole = new Role {Name = junior};
 
-                        if (!r.Contains(new Role {Name = junior})) continue;
+                        if (!r.Contains(juniorRole)) continue;
 
                         if (r.Contains(seniorRole))
                         {
@@ -71,17 +78,17 @@ namespace PDP_RBAC1
                             r.Add(seniorRole);
                         }
 
-                        toRemove = role;
+                        toRemove = rHelement;
                     }
                 }
 
                 if(toRemove != null)
                 {
-                    rolesCopy.Remove(toRemove);
+                    rhCopy.Remove(toRemove);
                 }
             }
 
-            regex = new Regex("((?<role>),(?<permission>))");
+            regex = new Regex("((?<role>[A-Za-z0-9]+),(?<permission>[A-Za-z0-9]+))");
 
             foreach (string assignment in permissionAssignment)
             {
@@ -105,10 +112,10 @@ namespace PDP_RBAC1
 
             foreach (string user in users)
             {
-                u.Add(new User {Name = user});
+                u.Add(new User {Name = user, Roles = new List<Role>()});
             }
 
-            Regex regex = new Regex("((?<user>),(?<role>))");
+            Regex regex = new Regex(@"\((?<user>[A-Za-z0-9]+),(?<role>[A-Za-z0-9]+)\)");
 
             foreach (string assignment in userAssignment)
             {
@@ -148,6 +155,18 @@ namespace PDP_RBAC1
             }
 
             return true;
+        }
+
+        public void SavePolicy()
+        {
+            PDPSection saveSection = (PDPSection) ConfigurationManager.GetSection("PDPPolicy");
+
+            _users.AddToUserCollection(saveSection.Users);
+            _roles.AddToRoleCollection(saveSection.Roles);
+            _permissions.AddToPermissionCollection(saveSection.Permissions);
+
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            c.Save(ConfigurationSaveMode.Full);
         }
 
     }
