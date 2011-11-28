@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@ViewBag.Message</h2>
+<p>    
+    @using (Html.BeginForm("All","Contact"))
+    {
+        <p>Your Email: @Html.TextBox("email")</p>
+        <input type="submit" />
+    }
+</p>
