@@ -20,11 +20,10 @@ namespace PolicyEnforcementPointApplication.Filter
             {
                 PolicyDecisionPoint p = PolicyDecisionPoint.GetInstance();
 
-                Session s = p.CreateSession(user);
-
-                if(!p.HasPermission(s, NeededPermissions))
+                foreach (var neededPermission in NeededPermissions)
                 {
-                    throw new InsufficientPrivilegesException();
+                    Permission permission = p.GetPermission(neededPermission);
+                    permission.Demand();
                 }
             }
         }

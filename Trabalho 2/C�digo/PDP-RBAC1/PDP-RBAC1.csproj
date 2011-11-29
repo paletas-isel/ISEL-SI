@@ -51,9 +51,9 @@
     <Compile Include="Configurations\SimpleRoleElement.cs" />
     <Compile Include="Configurations\UserCollection.cs" />
     <Compile Include="Configurations\UserElement.cs" />
+    <Compile Include="Exceptions\InsufficientPrivilegesException.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\Session.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="PolicyDecisionPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

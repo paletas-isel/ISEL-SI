@@ -1,6 +1,9 @@
 using System;
 using System.Security;
+using System.Security.Principal;
+using System.Threading;
 using PolicyDecisionPointRBAC1.Configurations;
+using PolicyEnforcementPointApplication.Filter;
 
 namespace PolicyDecisionPointRBAC1.Model
 {
@@ -58,7 +61,16 @@ namespace PolicyDecisionPointRBAC1.Model
 
         public void Demand()
         {
-            throw new NotImplementedException();
+            IPrincipal user = Thread.CurrentPrincipal;
+            if (user.Identity.IsAuthenticated)
+            {
+                PolicyDecisionPoint p = PolicyDecisionPoint.GetInstance();
+
+                if (!p.HasPermission(user, this))
+                {
+                    throw new InsufficientPrivilegesException();
+                }
+            }
         }
 
         #endregion
