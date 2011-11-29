@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class PDPSection : ConfigurationSection
     {
@@ -32,6 +32,10 @@ namespace PDP_RBAC1.Configurations
             {
                 return (PermissionCollection)base["Permissions"];
             }
+        }
+        public override bool IsReadOnly()
+        {
+            return false;
         }
     }
 }

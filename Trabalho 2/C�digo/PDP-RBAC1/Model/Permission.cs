@@ -1,4 +1,4 @@
-namespace PDP_RBAC1.Model
+namespace PolicyDecisionPointRBAC1.Model
 {
     public class Permission
     {

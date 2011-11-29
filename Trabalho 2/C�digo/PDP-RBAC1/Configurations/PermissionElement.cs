@@ -1,15 +1,20 @@
 using System.Configuration;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class PermissionElement : ConfigurationElement
     {
         [ConfigurationProperty("Name")]
         public string Name
         {
-            get { return (string)this["name"]; }
+            get { return (string)this["Name"]; }
 
             set { this["Name"] = value; }
+        }
+
+        public override bool IsReadOnly()
+        {
+            return false;
         }
     }
 }

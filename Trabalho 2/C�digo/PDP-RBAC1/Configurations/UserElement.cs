@@ -4,14 +4,14 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class UserElement : ConfigurationElement
     {
         [ConfigurationProperty("Name")]
         public string Name
         {
-            get { return (string)this["name"]; }
+            get { return (string)this["Name"]; }
 
             set { this["Name"] = value; }
         }

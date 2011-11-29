@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using PDP_RBAC1.Model;
+using PolicyDecisionPointRBAC1.Model;
 
-namespace PDP_RBAC1.Configurations.Helpers
+namespace PolicyDecisionPointRBAC1.Configurations.Helpers
 {
-    public static class IEnumerableHelpers
+    public static class ConfigurationHelpers
     {
         public static void AddToUserCollection(this IEnumerable<User> users, UserCollection collection)
         {

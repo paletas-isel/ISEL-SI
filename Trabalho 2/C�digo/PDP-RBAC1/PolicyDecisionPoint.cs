@@ -1,20 +1,18 @@
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
-using PDP_RBAC1.Configurations;
-using PDP_RBAC1.Configurations.Helpers;
-using PDP_RBAC1.Model;
+using PolicyDecisionPointRBAC1.Configurations.Helpers;
+using PolicyDecisionPointRBAC1.Configurations;
+using PolicyDecisionPointRBAC1.Model;
 
-namespace PDP_RBAC1
+namespace PolicyDecisionPointRBAC1
 {
     public class PolicyDecisionPoint
     {
         private IEnumerable<User> _users;
         private IEnumerable<Role> _roles;
         private IEnumerable<Permission> _permissions;
-        private IEnumerable<Session> _sessions;
 
         public PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
             IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
@@ -23,6 +21,11 @@ namespace PDP_RBAC1
             _permissions = ParsePermissions(permissions);
             _roles = ParseRoles(roles, _permissions, rh, permissionAssignment);
             _users = ParseUsers(users, _roles, userAssignment);
+        }
+
+        public PolicyDecisionPoint()
+        {
+            LoadPolicy();
         }
 
         private static IEnumerable<Permission> ParsePermissions(IEnumerable<string> permissions)
@@ -97,7 +100,7 @@ namespace PDP_RBAC1
                 if (match.Success)
                 {
                     Role role = r[r.IndexOf(new Role { Name = match.Groups["role"].Value })];
-                    Permission permission = permissions.Single(b => b.Equals(new Permission() { Name = match.Groups["permission"].Value }));
+                    Permission permission = permissions.Single(b => b.Equals(new Permission { Name = match.Groups["permission"].Value }));
 
                     role.Permissions.Add(permission);
                 }
@@ -139,12 +142,38 @@ namespace PDP_RBAC1
             s.User = user;
             s.Permissions = new List<Permission>();
 
-            foreach (Permission permission in user.Roles.SelectMany(u => u.Permissions))
+            foreach (Role role in user.Roles)
             {
-                s.Permissions.Add(permission);
+                s.Permissions.AddRange(GetAllPermissions(role));
             }
 
             return s;
+        }
+
+        public Session CreateSession(User user, string role)
+        {
+            Session s = new Session();
+            s.User = user;
+            s.Permissions = new List<Permission>();
+
+            Role r = _roles.Single(p => p.Name.Equals(role));
+            s.Permissions.AddRange(GetAllPermissions(r));
+
+            return s;
+        }
+
+        private IEnumerable<Permission> GetAllPermissions(Role role)
+        {
+            List<Permission> permissions = new List<Permission>();
+
+            permissions.AddRange(role.Permissions);
+
+            foreach (var junior in role.Juniors)
+            {
+                permissions.AddRange(GetAllPermissions(junior));
+            }
+
+            return permissions;
         }
 
         public bool HasPermission(Session session, IEnumerable<Permission> neededPermissions)
@@ -159,14 +188,81 @@ namespace PDP_RBAC1
 
         public void SavePolicy()
         {
-            PDPSection saveSection = (PDPSection) ConfigurationManager.GetSection("PDPPolicy");
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            PDPSection saveSection = (PDPSection) c.GetSection("PDPPolicy");
 
             _users.AddToUserCollection(saveSection.Users);
             _roles.AddToRoleCollection(saveSection.Roles);
             _permissions.AddToPermissionCollection(saveSection.Permissions);
-
-            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             c.Save(ConfigurationSaveMode.Full);
+        }
+
+        private void LoadPolicy()
+        {
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            PDPSection loadSection = (PDPSection)c.GetSection("PDPPolicy");
+
+            List<Permission> permissions = new List<Permission>();
+
+            foreach (var permission in loadSection.Permissions)
+            {
+                PermissionElement pe = (PermissionElement) permission;
+                permissions.Add(new Permission { Name = pe.Name });
+            }
+
+            _permissions = permissions;
+
+            List<Role> roles = new List<Role>();
+
+            foreach (var role in loadSection.Roles)
+            {
+                RoleElement re = (RoleElement)role;
+
+                Role r = new Role {Name = re.Name, Juniors = new List<Role>(), Permissions = new List<Permission>()};
+                roles.Add(r);
+
+                foreach (var permission in re.Permissions)
+                {
+                    PermissionElement pe = (PermissionElement) permission;
+                    Permission p = permissions[permissions.IndexOf(new Permission {Name = pe.Name})];
+                    r.Permissions.Add(p);
+                }
+            }
+
+            foreach (var role in loadSection.Roles)
+            {
+                RoleElement re = (RoleElement)role;
+
+                Role r = roles[roles.IndexOf(new Role {Name = re.Name})];
+
+                foreach (var junior in re.Juniors)
+                {
+                    SimpleRoleElement re1 = (SimpleRoleElement)junior;
+                    Role p = roles[roles.IndexOf(new Role { Name = re1.Name })];
+                    r.Juniors.Add(p);
+                }
+            }
+
+            _roles = roles;
+
+            List<User> users = new List<User>();
+
+            foreach (var user in loadSection.Users)
+            {
+                UserElement ue = (UserElement) user;
+
+                User u = new User {Name = ue.Name, Roles = new List<Role>()};
+                users.Add(u);
+
+                foreach (var role in ue.Roles)
+                {
+                    SimpleRoleElement re = (SimpleRoleElement)role;
+                    Role p = roles[roles.IndexOf(new Role { Name = re.Name })];
+                    u.Roles.Add(p);
+                }
+            }
+
+            _users = users;
         }
 
     }

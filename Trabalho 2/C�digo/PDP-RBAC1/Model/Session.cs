@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PDP_RBAC1.Model
+namespace PolicyDecisionPointRBAC1.Model
 {
     public class Session
     {

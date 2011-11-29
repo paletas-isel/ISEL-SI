@@ -1,13 +1,13 @@
 using System.Configuration;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class RoleElement : ConfigurationElement
     {
         [ConfigurationProperty("Name")]
         public string Name
         {
-            get { return (string)this["name"]; }
+            get { return (string)this["Name"]; }
 
             set { this["Name"] = value; }
         }
@@ -30,6 +30,10 @@ namespace PDP_RBAC1.Configurations
             {
                 return (PermissionCollection)base["Permissions"];
             }
+        }
+        public override bool IsReadOnly()
+        {
+            return false;
         }
     }
 }

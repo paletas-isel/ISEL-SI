@@ -8,8 +8,8 @@
     <ProjectGuid>{40FE4183-4B20-4226-B635-5860B0329095}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PDP_RBAC1</RootNamespace>
-    <AssemblyName>PDP-RBAC1</AssemblyName>
+    <RootNamespace>PolicyDecisionPointRBAC1</RootNamespace>
+    <AssemblyName>PolicyDecisionPointRBAC1</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\Helpers\IEnumerableHelpers.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Configurations\PDPSection.cs" />
     <Compile Include="Configurations\PermissionCollection.cs" />
     <Compile Include="Configurations\PermissionElement.cs" />

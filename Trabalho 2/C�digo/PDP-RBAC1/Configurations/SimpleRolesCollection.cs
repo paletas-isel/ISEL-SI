@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class SimpleRolesCollection : ConfigurationElementCollection
     {
@@ -22,5 +22,10 @@ namespace PDP_RBAC1.Configurations
         }
 
         #endregion
+
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
     }
 }

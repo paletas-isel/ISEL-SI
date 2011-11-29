@@ -1,7 +1,7 @@
 using System;
 using System.Configuration;
 
-namespace PDP_RBAC1.Configurations
+namespace PolicyDecisionPointRBAC1.Configurations
 {
     public class PermissionCollection : ConfigurationElementCollection
     {
@@ -23,5 +23,10 @@ namespace PDP_RBAC1.Configurations
         }
 
         #endregion
+
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
     }
 }
