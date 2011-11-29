@@ -14,17 +14,19 @@ namespace GmailContacts.Controllers
 {
     public class ContactController : Controller
     {
+        //string redirectUri = @"http://localhost:43572/Contact/Authorized";
+        const string RedirectUri = @"https://localhost:44300/Contact/Authorized";
+
         //
         // GET: /AllContacts/
 
         public ActionResult ObtainAll(string email)
         {
             string clientId = "19820391233.apps.googleusercontent.com";
-            string redirectUri = @"http://localhost:43572/Contact/Authorized";
             string scope = @"https://www.google.com/m8/feeds+https://www.googleapis.com/auth/userinfo.profile";
 
             string oauthEndpoint =
-                String.Format(@"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={0}&redirect_uri={1}&scope={2}&state={3}", clientId, redirectUri, scope, email);
+                String.Format(@"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={0}&redirect_uri={1}&scope={2}&state={3}", clientId, RedirectUri, scope, email);
         
             return Redirect(oauthEndpoint);
         }
@@ -33,14 +35,13 @@ namespace GmailContacts.Controllers
         public ActionResult Authorized(string code, string state)
         {
             string clientId = "19820391233.apps.googleusercontent.com";
-            string redirectUri = "http://localhost:43572/Contact/Authorized";
             string clientSecret = "WlLnme7lieXTOLOGM0Z-aeZJ";
             string grantType = "authorization_code"; 
             
             string tokenEndpoint = "https://accounts.google.com/o/oauth2/token";
             string tokenBody =     
                 String.Format("code={0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type={4}",
-                                code, clientId, clientSecret, redirectUri, grantType);
+                                code, clientId, clientSecret, RedirectUri, grantType);
 
             HttpWebRequest postRequest = (HttpWebRequest) WebRequest.Create(tokenEndpoint);
             postRequest.Method = "POST";
