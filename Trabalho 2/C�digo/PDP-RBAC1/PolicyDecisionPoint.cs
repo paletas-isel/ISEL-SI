@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using PolicyDecisionPointRBAC1.Configurations.Helpers;
 using PolicyDecisionPointRBAC1.Configurations;
@@ -10,11 +12,36 @@ namespace PolicyDecisionPointRBAC1
 {
     public class PolicyDecisionPoint
     {
+        private volatile static PolicyDecisionPoint _instance;
+
         private IEnumerable<User> _users;
         private IEnumerable<Role> _roles;
         private IEnumerable<Permission> _permissions;
 
-        public PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
+        public static PolicyDecisionPoint GetInstance(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
+            IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
+        {
+            if(_instance == null)
+            {
+                _instance = new PolicyDecisionPoint(users, roles, permissions, rh, userAssignment, permissionAssignment);
+                
+                return _instance;
+            }
+
+            throw new ArgumentException();
+        }
+
+        public static PolicyDecisionPoint GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new PolicyDecisionPoint();
+            }
+
+            return _instance;
+        }
+
+        private PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
             IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
         {
             //Order matters! :(
@@ -23,7 +50,7 @@ namespace PolicyDecisionPointRBAC1
             _users = ParseUsers(users, _roles, userAssignment);
         }
 
-        public PolicyDecisionPoint()
+        private PolicyDecisionPoint()
         {
             LoadPolicy();
         }
@@ -136,13 +163,21 @@ namespace PolicyDecisionPointRBAC1
             return u;
         }
     
-        public Session CreateSession(User user)
+        public Session CreateSession(IPrincipal user)
         {
             Session s = new Session();
-            s.User = user;
+
+            try
+            {
+                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
+            }
+            catch(InvalidOperationException)
+            {
+                throw new ArgumentException("Unexistant user!");
+            }
             s.Permissions = new List<Permission>();
 
-            foreach (Role role in user.Roles)
+            foreach (Role role in s.User.Roles)
             {
                 s.Permissions.AddRange(GetAllPermissions(role));
             }
@@ -150,13 +185,21 @@ namespace PolicyDecisionPointRBAC1
             return s;
         }
 
-        public Session CreateSession(User user, string role)
+        public Session CreateSession(IPrincipal user, string role)
         {
             Session s = new Session();
-            s.User = user;
+
+            try
+            {
+                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
+            }
+            catch(InvalidOperationException)
+            {
+                throw new ArgumentException("Unexistant user!");
+            }
             s.Permissions = new List<Permission>();
 
-            Role r = _roles.Single(p => p.Name.Equals(role));
+            Role r = _roles.Single(p => p.Equals(role));
             s.Permissions.AddRange(GetAllPermissions(r));
 
             return s;
@@ -176,9 +219,9 @@ namespace PolicyDecisionPointRBAC1
             return permissions;
         }
 
-        public bool HasPermission(Session session, IEnumerable<Permission> neededPermissions)
+        public bool HasPermission(Session session, IEnumerable<string> neededPermissions)
         {
-            foreach(Permission permission in neededPermissions)
+            foreach(Permission permission in _permissions.Where(p => neededPermissions.Contains(p.Name)))
             {
                 if (!session.Permissions.Contains(permission)) return false;
             }

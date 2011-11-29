@@ -30,7 +30,7 @@ namespace PDP_TestApp
 
         static void Main(string[] args)
         {
-            PolicyDecisionPoint pdp = new PolicyDecisionPoint();
+            PolicyDecisionPoint pdp = PolicyDecisionPoint.GetInstance();
 
             pdp.SavePolicy();
         }
