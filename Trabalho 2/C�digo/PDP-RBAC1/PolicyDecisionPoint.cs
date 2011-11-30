@@ -1,25 +1,58 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
-using PDP_RBAC1.Model;
+using PolicyDecisionPointRBAC1.Configurations.Helpers;
+using PolicyDecisionPointRBAC1.Configurations;
+using PolicyDecisionPointRBAC1.Model;
 
-namespace PDP_RBAC1
+namespace PolicyDecisionPointRBAC1
 {
     public class PolicyDecisionPoint
     {
+        private volatile static PolicyDecisionPoint _instance;
+
         private IEnumerable<User> _users;
         private IEnumerable<Role> _roles;
         private IEnumerable<Permission> _permissions;
-        private IEnumerable<Session> _sessions;
 
-        public PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
-            IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
+        public static PolicyDecisionPoint GetInstance(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
+            IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
+        {
+            if(_instance == null)
+            {
+                _instance = new PolicyDecisionPoint(users, roles, permissions, rh, userAssignment, permissionAssignment);
+                
+                return _instance;
+            }
+
+            throw new ArgumentException();
+        }
+
+        public static PolicyDecisionPoint GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new PolicyDecisionPoint();
+            }
+
+            return _instance;
+        }
+
+        private PolicyDecisionPoint(IEnumerable<string> users, IEnumerable<string> roles, IEnumerable<string> permissions,
+            IEnumerable<string> rh, IEnumerable<string> userAssignment, IEnumerable<string> permissionAssignment)
         {
             //Order matters! :(
             _permissions = ParsePermissions(permissions);
-            _roles = ParseRoles(roles, _permissions, permissionAssignment);
+            _roles = ParseRoles(roles, _permissions, rh, permissionAssignment);
             _users = ParseUsers(users, _roles, userAssignment);
+        }
+
+        private PolicyDecisionPoint()
+        {
+            LoadPolicy();
         }
 
         private static IEnumerable<Permission> ParsePermissions(IEnumerable<string> permissions)
@@ -34,23 +67,27 @@ namespace PDP_RBAC1
             return p;
         }
 
-        private static IEnumerable<Role> ParseRoles(IEnumerable<string> roles, IEnumerable<Permission> permissions, IEnumerable<string> permissionAssignment)
+        private static IEnumerable<Role> ParseRoles(IEnumerable<string> roles, IEnumerable<Permission> permissions, IEnumerable<string> rh, IEnumerable<string> permissionAssignment)
         {
             List<Role> r = new List<Role>();
-            List<string> rolesCopy = new List<string>(roles);
-            
-            Regex regex =
-                        new Regex(
-                            "[((?<Senior>[A-Za-z0-9]+) > (?<Junior>[A-Za-z0-9]+))((?<Junior>[A-Za-z0-9]+) < (?<Senior>[A-Za-z0-9]+))]");
+            List<string> rhCopy = new List<string>(rh);
+
+            foreach (string role in roles)
+            {
+                r.Add(new Role { Name = role, Juniors = new List<Role>(), Permissions = new List<Permission>()});
+            }
+
+            Regex regex = new Regex(
+                            "((?<Senior>[A-Za-z0-9]+) > (?<Junior>[A-Za-z0-9]+))|((?<Junior>[A-Za-z0-9]+) < (?<Senior>[A-Za-z0-9]+))", RegexOptions.IgnorePatternWhitespace);
                     
-            while (rolesCopy.Count() != 0)
+            while (rhCopy.Count() != 0)
             {
                 string toRemove = null;
-                foreach (string role in rolesCopy)
+                foreach (string rHelement in rhCopy)
                 {
-                    Match match = regex.Match(role);
-                    if (!match.Success) r.Add(new Role {Name = role});
-                    else
+                    Match match = regex.Match(rHelement);
+
+                    if (match.Success)
                     {
                         string junior = match.Groups["Junior"].Value;
                         string senior = match.Groups["Senior"].Value;
@@ -58,7 +95,7 @@ namespace PDP_RBAC1
                         Role seniorRole = new Role {Name = senior};
                         Role juniorRole = new Role {Name = junior};
 
-                        if (!r.Contains(new Role {Name = junior})) continue;
+                        if (!r.Contains(juniorRole)) continue;
 
                         if (r.Contains(seniorRole))
                         {
@@ -71,17 +108,17 @@ namespace PDP_RBAC1
                             r.Add(seniorRole);
                         }
 
-                        toRemove = role;
+                        toRemove = rHelement;
                     }
                 }
 
                 if(toRemove != null)
                 {
-                    rolesCopy.Remove(toRemove);
+                    rhCopy.Remove(toRemove);
                 }
             }
 
-            regex = new Regex("((?<role>),(?<permission>))");
+            regex = new Regex("((?<role>[A-Za-z0-9]+),(?<permission>[A-Za-z0-9]+))");
 
             foreach (string assignment in permissionAssignment)
             {
@@ -90,7 +127,7 @@ namespace PDP_RBAC1
                 if (match.Success)
                 {
                     Role role = r[r.IndexOf(new Role { Name = match.Groups["role"].Value })];
-                    Permission permission = permissions.Single(b => b.Equals(new Permission() { Name = match.Groups["permission"].Value }));
+                    Permission permission = permissions.Single(b => b.Equals(new Permission { Name = match.Groups["permission"].Value }));
 
                     role.Permissions.Add(permission);
                 }
@@ -105,10 +142,10 @@ namespace PDP_RBAC1
 
             foreach (string user in users)
             {
-                u.Add(new User {Name = user});
+                u.Add(new User {Name = user, Roles = new List<Role>()});
             }
 
-            Regex regex = new Regex("((?<user>),(?<role>))");
+            Regex regex = new Regex(@"\((?<user>[A-Za-z0-9]+),(?<role>[A-Za-z0-9]+)\)");
 
             foreach (string assignment in userAssignment)
             {
@@ -126,28 +163,149 @@ namespace PDP_RBAC1
             return u;
         }
     
-        public Session CreateSession(User user)
+        public Session CreateSession(IPrincipal user)
         {
             Session s = new Session();
-            s.User = user;
+
+            try
+            {
+                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
+            }
+            catch(InvalidOperationException)
+            {
+                throw new ArgumentException("Unexistant user!");
+            }
             s.Permissions = new List<Permission>();
 
-            foreach (Permission permission in user.Roles.SelectMany(u => u.Permissions))
+            foreach (Role role in s.User.Roles)
             {
-                s.Permissions.Add(permission);
+                s.Permissions.AddRange(GetAllPermissions(role));
             }
 
             return s;
         }
 
-        public bool HasPermission(Session session, IEnumerable<Permission> neededPermissions)
+        public Session CreateSession(IPrincipal user, string role)
         {
-            foreach(Permission permission in neededPermissions)
+            Session s = new Session();
+
+            try
+            {
+                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
+            }
+            catch(InvalidOperationException)
+            {
+                throw new ArgumentException("Unexistant user!");
+            }
+            s.Permissions = new List<Permission>();
+
+            Role r = _roles.Single(p => p.Equals(role));
+            s.Permissions.AddRange(GetAllPermissions(r));
+
+            return s;
+        }
+
+        private IEnumerable<Permission> GetAllPermissions(Role role)
+        {
+            List<Permission> permissions = new List<Permission>();
+
+            permissions.AddRange(role.Permissions);
+
+            foreach (var junior in role.Juniors)
+            {
+                permissions.AddRange(GetAllPermissions(junior));
+            }
+
+            return permissions;
+        }
+
+        public bool HasPermission(Session session, IEnumerable<string> neededPermissions)
+        {
+            foreach(Permission permission in _permissions.Where(p => neededPermissions.Contains(p.Name)))
             {
                 if (!session.Permissions.Contains(permission)) return false;
             }
 
             return true;
+        }
+
+        public void SavePolicy()
+        {
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            PDPSection saveSection = (PDPSection) c.GetSection("PDPPolicy");
+
+            _users.AddToUserCollection(saveSection.Users);
+            _roles.AddToRoleCollection(saveSection.Roles);
+            _permissions.AddToPermissionCollection(saveSection.Permissions);
+            c.Save(ConfigurationSaveMode.Full);
+        }
+
+        private void LoadPolicy()
+        {
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            PDPSection loadSection = (PDPSection)c.GetSection("PDPPolicy");
+
+            List<Permission> permissions = new List<Permission>();
+
+            foreach (var permission in loadSection.Permissions)
+            {
+                PermissionElement pe = (PermissionElement) permission;
+                permissions.Add(new Permission { Name = pe.Name });
+            }
+
+            _permissions = permissions;
+
+            List<Role> roles = new List<Role>();
+
+            foreach (var role in loadSection.Roles)
+            {
+                RoleElement re = (RoleElement)role;
+
+                Role r = new Role {Name = re.Name, Juniors = new List<Role>(), Permissions = new List<Permission>()};
+                roles.Add(r);
+
+                foreach (var permission in re.Permissions)
+                {
+                    PermissionElement pe = (PermissionElement) permission;
+                    Permission p = permissions[permissions.IndexOf(new Permission {Name = pe.Name})];
+                    r.Permissions.Add(p);
+                }
+            }
+
+            foreach (var role in loadSection.Roles)
+            {
+                RoleElement re = (RoleElement)role;
+
+                Role r = roles[roles.IndexOf(new Role {Name = re.Name})];
+
+                foreach (var junior in re.Juniors)
+                {
+                    SimpleRoleElement re1 = (SimpleRoleElement)junior;
+                    Role p = roles[roles.IndexOf(new Role { Name = re1.Name })];
+                    r.Juniors.Add(p);
+                }
+            }
+
+            _roles = roles;
+
+            List<User> users = new List<User>();
+
+            foreach (var user in loadSection.Users)
+            {
+                UserElement ue = (UserElement) user;
+
+                User u = new User {Name = ue.Name, Roles = new List<Role>()};
+                users.Add(u);
+
+                foreach (var role in ue.Roles)
+                {
+                    SimpleRoleElement re = (SimpleRoleElement)role;
+                    Role p = roles[roles.IndexOf(new Role { Name = re.Name })];
+                    u.Roles.Add(p);
+                }
+            }
+
+            _users = users;
         }
 
     }

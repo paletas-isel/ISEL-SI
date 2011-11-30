@@ -1,0 +1,15 @@
+Usar HTTPS
+
+Para facilitar o processo foi trocado o servidor de testes pelo IIS Express, isto pode ser feito fazendo right-click no projecto e escolhendo a opção "Use IIS Express...". Começamos então a usar o IIS Express, agora é preciso que este aceite ligações SSL e para isso abre-se as propriedades do projecto e na opção "SSL Enabled" escolhe-se true.
+
+Agora é preciso instalar o certificado na máquina, garantindo que temos a chave primária deste, e adicionar o certificado root como trusted. Estando os certificados instalados precisamos então de escolher o certificado que o IIS Express vai usar, para isso usamos os seguinte comandos.
+
+netsh http delete sslcert ipport=0.0.0.0:<SSLPort>
+
+Este comando irá apagar o certificado que se encontra de momento na porta <SSLPort>.
+
+netsh http add sslcert ipport=0.0.0.0:44300 certstorename=MY certhash=<certificate hash> appid=<appid>
+
+Este comando irá adicionar um novo certificado a essa porta, o valor appid pode ser um qualquer identificador único (por ex, {214124cd-d05b-4309-9af9-9cac44b2b74a}).
+
+Por fim, é preciso adicionar o callback para https no painel de controlo das APIs do Google. E depois disso é preciso que a aplicação escolha este novo callback como callback a usar, a partir deste momento iremos estar a comunicar sobre um canal seguro.
