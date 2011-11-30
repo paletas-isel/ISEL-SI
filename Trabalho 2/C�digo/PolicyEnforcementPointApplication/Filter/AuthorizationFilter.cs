@@ -11,22 +11,42 @@ namespace PolicyEnforcementPointApplication.Filter
     {
         public string[] NeededPermissions { get; set; }
 
+        private IEnumerable<Permission> _permissions;
+
         #region Implementation of IAuthorizationFilter
 
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             IPrincipal user = filterContext.HttpContext.User;
-            if(user.Identity.IsAuthenticated)
+            if (user.Identity.IsAuthenticated)
             {
                 PolicyDecisionPoint p = PolicyDecisionPoint.GetInstance();
 
-                Session s = p.CreateSession(user);
-
-                if(!p.HasPermission(s, NeededPermissions))
+                if(_permissions == null)
                 {
-                    throw new InsufficientPrivilegesException();
+                    List<Permission> permissions = new List<Permission>();
+
+                    foreach (var neededPermission in NeededPermissions)
+                    {
+                        Permission permission = p.GetPermission(neededPermission);
+                        permissions.Add(permission);
+                        permission.Demand();
+                    }
+
+                    _permissions = permissions;
                 }
+                else
+                {
+                    foreach (var permission in _permissions)
+                    {
+                        permission.Demand();
+                    }
+                }
+
+                return;
             }
+
+            throw new InsufficientPrivilegesException();
         }
 
         #endregion

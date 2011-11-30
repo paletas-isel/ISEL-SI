@@ -162,48 +162,6 @@ namespace PolicyDecisionPointRBAC1
 
             return u;
         }
-    
-        public Session CreateSession(IPrincipal user)
-        {
-            Session s = new Session();
-
-            try
-            {
-                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
-            }
-            catch(InvalidOperationException)
-            {
-                throw new ArgumentException("Unexistant user!");
-            }
-            s.Permissions = new List<Permission>();
-
-            foreach (Role role in s.User.Roles)
-            {
-                s.Permissions.AddRange(GetAllPermissions(role));
-            }
-
-            return s;
-        }
-
-        public Session CreateSession(IPrincipal user, string role)
-        {
-            Session s = new Session();
-
-            try
-            {
-                s.User = _users.Single(u => u.Equals(new User() { Name = user.Identity.Name }));
-            }
-            catch(InvalidOperationException)
-            {
-                throw new ArgumentException("Unexistant user!");
-            }
-            s.Permissions = new List<Permission>();
-
-            Role r = _roles.Single(p => p.Equals(role));
-            s.Permissions.AddRange(GetAllPermissions(r));
-
-            return s;
-        }
 
         private IEnumerable<Permission> GetAllPermissions(Role role)
         {
@@ -219,11 +177,32 @@ namespace PolicyDecisionPointRBAC1
             return permissions;
         }
 
-        public bool HasPermission(Session session, IEnumerable<string> neededPermissions)
+        public Permission GetPermission(string name)
         {
-            foreach(Permission permission in _permissions.Where(p => neededPermissions.Contains(p.Name)))
+            return _permissions.Single(p => p.Name.Equals(name));
+        }
+
+        public bool HasPermission(IPrincipal session, params Permission[] neededPermissions)
+        {
+            User user = (session is User) ? session as User : _users.Single(u => u.Name.Equals(session.Identity.Name));
+
+            List<Permission> availablePermissions = new List<Permission>();
+
+            foreach (Role role in user.Roles)
             {
-                if (!session.Permissions.Contains(permission)) return false;
+                if(session.IsInRole(role.Name))
+                    availablePermissions.AddRange(GetAllPermissions(role));
+            }
+
+            if(availablePermissions.Count == 0 && user.Roles.Count != 0)
+                foreach (Role role in user.Roles)
+                {
+                    availablePermissions.AddRange(GetAllPermissions(role));
+                }
+
+            foreach(Permission permission in neededPermissions)
+            {
+                if (!availablePermissions.Contains(permission)) return false;
             }
 
             return true;
